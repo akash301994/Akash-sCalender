@@ -1,17 +1,31 @@
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
+    
   }
-  
+
+/* Added centering on class "display-3"*/  
+.display-3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
   textarea {
     background: transparent;
     border: none;
     resize: none;
     color: #000000;
     border-left: 1px solid black;
-    padding: 10px;
+    
   }
-  
+/* added centering on class ".lead"*/
+.lead {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
   .description {
     white-space: pre-wrap;
   }
