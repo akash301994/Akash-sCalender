@@ -24,13 +24,14 @@ function setColors() {
     }
   }
 }
-// function to set placeholders for the textboxes/areas
+//  placeholder function 
 function placeholderSetter() {
     for (let i = 1; i <= 9; i++) {
       $(`#input${i}`).val(localStorage.getItem(`input${i}`));
     }
   }
-  // function to set event listeners
+  // setting event listeners
+
   function eventListeners() {
     for (let i = 1; i <= 9; i++) {
       console.log(i);
@@ -55,7 +56,7 @@ function placeholderSetter() {
   placeholderSetter();
   eventListeners();
   
-  // time interval to call the functions every second
+  // time interval
   setInterval(function () {
     now = dayjs();
     now0 = now;
