@@ -1,33 +1,70 @@
-var todayDate = moment().format('dddd, MMM do YYYY');
-$("#currentDay").html(todayDate);
+var now = dayjs(); // current time
+var now0 = now; // time that starts at real
+//variables for the time
+var hour = now.hour();
+var minute = now.minute();
+var second = now.second();
+//console.log function
+function logger() {
+  for (let i = 1; i <= 9; i++) {
+    console.log(localStorage.getItem(`input${i}`));
+  }
+}
+// function to set colors
+function setColors() {
+  var thisHour0 = now0.hour(); //sets the current hour
+  for (let i = 9; i <= 17; i++) {
+    // goes through the hours and sets colors based on if its before,after or during the hour
+    if (i > thisHour0) {
+      $(`#input${i - 8}`).addClass("future");
+    } else if (i < thisHour0) {
+      $(`#input${i - 8}`).addClass("past");
+    } else {
+      $(`#input${i - 8}`).addClass("present");
+    }
+  }
+}
+// function to set placeholders for the textboxes/areas
+function placeholderSetter() {
+  for (let i = 1; i <= 9; i++) {
+    $(`#input${i}`).val(localStorage.getItem(`input${i}`));
+  }
+}
+// function to set event listeners
+function eventListeners() {
+  for (let i = 1; i <= 9; i++) {
+    console.log(i);
+    $(`#button-addon${i}`).click(function () {
+      let input = $(`#input${i}`).val();
+      console.log(input);
+      $(`#label${i}`).text(input);
+      localStorage.setItem(`input${i}`, input);
+    });
+  }
+}
+function setCurrentDay() {
+  $("#currentDay").text(
+    "Today is " +
+      now.format("dddd, MMMM D, YYYY" + ` (${hour}:${minute}:${second})`)
+  ); // sets the date at the top
+}
 
+setCurrentDay();
+setColors();
+logger();
+placeholderSetter();
+eventListeners();
 
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-$(document).ready(function () {
-    $(".saveBtn").on("click", function (){
-
-        var text = $(this).siblings(".description").val();
-    })
-})
-$(function () {
-    // TODO: Add a listener for click events on the save button. This code should
-    // use the id in the containing time-block as a key to save the user input in
-    // local storage. HINT: What does `this` reference in the click listener
-    // function? How can DOM traversal be used to get the "hour-x" id of the
-    // time-block containing the button that was clicked? How might the id be
-    // useful when saving the description in local storage?
-    //
-    // TODO: Add code to apply the past, present, or future class to each time
-    // block by comparing the id to the current hour. HINTS: How can the id
-    // attribute of each time-block be used to conditionally add or remove the
-    // past, present, and future classes? How can Day.js be used to get the
-    // current hour in 24-hour time?
-    //
-    // TODO: Add code to get any user input that was saved in localStorage and set
-    // the values of the corresponding textarea elements. HINT: How can the id
-    // attribute of each time-block be used to do this?
-    //
-    // TODO: Add code to display the current date in the header of the page.
-  });
+// time interval to call the functions every second
+setInterval(function () {
+  now = dayjs();
+  now0 = now;
+  hour = now.hour();
+  thisHour0 = now0.hour();
+  minute = now.minute();
+  second = now.second();
+  setCurrentDay();
+  setColors();
+  logger();
+  // placeholderSetter();
+}, 1000);
