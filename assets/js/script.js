@@ -14,7 +14,7 @@ function logger() {
 function setColors() {
   var thisHour0 = now0.hour(); //sets the current hour
   for (let i = 9; i <= 17; i++) {
-    // goes through the hours and sets colors based on if its before,after or during the hour
+    // goes through the hours and sets colors 
     if (i > thisHour0) {
       $(`#input${i - 8}`).addClass("future");
     } else if (i < thisHour0) {
